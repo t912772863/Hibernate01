@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.tian.hibernate">
+	
+	<class name="User" table="user">
+		<id name="id" type="int" column="id">
+			<!--使用数据库的自动增长-->
+            <generator class="native"/>
+		</id>
+		<property name="name" type="string" column="NAME" length="20"/>
+	</class>
+	
+</hibernate-mapping>
