@@ -2,14 +2,19 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
+<!--声明一个默认的包路径-->
 <hibernate-mapping package="com.tian.hibernate">
-	
+	<!--
+	name属性:哪个类,可以写类的全路径.也可以在上面中一个包路径,这样没有写全路径的都用上面声明的那个包路径.
+	tabel可以不写,默认就是类的简单名字. 一般习惯都写上.
+	-->
 	<class name="User" table="user">
+		<!--实体中的Id属性与表中的ID字段对应-->
 		<id name="id" type="int" column="id">
 			<!--使用数据库的自动增长-->
             <generator class="native"/>
 		</id>
+		<!--实体中的name属性和表中的NAME字段对应-->
 		<property name="name" type="string" column="NAME" length="20"/>
 	</class>
 	

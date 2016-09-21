@@ -1,9 +1,12 @@
 package com.tian.dao;
 
 import com.tian.hibernate.User;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -149,12 +152,23 @@ public class UserDao {
             query.setMaxResults(maxResult);
             List<User> list = query.list();
 
+            // 查询结果方式二;Criteria
+            Criteria criteria = session.createCriteria(User.class);
+            // 添加一个过滤条件,id = 5
+//            criteria.add(Restrictions.eq("id",5));
+            // 添加排序
+//            criteria.addOrder(Order.asc("id"));
+            //拿到结果
+            List<User> list2 = criteria.list();
+
+
+
             //查询总的记录数
             // 当确认返回值只有一个时用 .uniqueResult()方法
             Long count = (Long)session.createQuery("SELECT COUNT(*) FROM User").uniqueResult();
 
             queryResult.setCount(count.intValue());
-            queryResult.setList(list);
+            queryResult.setList(list2);
 
             // 提交事务
             tx.commit();

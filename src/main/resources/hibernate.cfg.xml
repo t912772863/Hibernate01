@@ -13,9 +13,18 @@
 
 		<!-- 配置显示sql语句-->
 		<property name="hibernate.show_sql">true</property>
+		<!-- 格式化输出的语句-->
+		<property name="hibernate.format_sql">false</property>
+		<!--配置可以根据xml配置文件生成表到数据库中
+			create先删除再创建.  update不存在就创建,存在就更新,没有可更新结构,什么也不做
+			create-drop:启动创建,退出时删除.  validata验证xml与表结构是否一致,不一致会拋出异常
+		-->
+		<property name="hbm2ddl.auto">create</property>
+
 
 		<!--导入映射文件-->
 		<mapping resource="User.hbm.xml"></mapping>
+
 
 	
 	</session-factory>
