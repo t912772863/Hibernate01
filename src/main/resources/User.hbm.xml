@@ -12,10 +12,14 @@
 		<!--实体中的Id属性与表中的ID字段对应-->
 		<id name="id" type="int" column="id">
 			<!--使用数据库的自动增长-->
+			<!--class = assigned 表示不用数据库的自动增长,而是用我们自己生成的值-->
             <generator class="native"/>
 		</id>
 		<!--实体中的name属性和表中的NAME字段对应-->
+		<!--普通属性：字符串，日期，数字-->
 		<property name="name" type="string" column="NAME" length="20"/>
+		<property name="age" type="int" column="AGE"/>
+		<property name="birthday" type="date" column="BIRTHDAY"/>
 	</class>
 	
 </hibernate-mapping>

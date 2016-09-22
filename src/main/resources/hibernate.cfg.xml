@@ -19,7 +19,7 @@
 			create先删除再创建.  update不存在就创建,存在就更新,没有可更新结构,什么也不做
 			create-drop:启动创建,退出时删除.  validata验证xml与表结构是否一致,不一致会拋出异常
 		-->
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">update</property>
 
 
 		<!--导入映射文件-->
