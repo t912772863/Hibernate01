@@ -6,7 +6,6 @@ import java.util.List;
  * Created by tian on 2016/9/20.
  */
 public class QueryResult {
-    // test commit
     /**
      * 总记录数
      */
