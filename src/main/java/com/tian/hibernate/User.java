@@ -1,6 +1,6 @@
 package com.tian.hibernate;
 
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by tian on 2016/9/19.
@@ -11,6 +11,18 @@ public class User {
     private String password;
     private Integer age;
     private Date birthday;
+    /**
+     * set是无序的
+     */
+    private Set<String> addressSet;
+    /**
+     * list有序
+     */
+    private List<String> addressList = new ArrayList<String>();
+
+    private String[] addressArray  ;
+
+    private Map<String,String> addressMap = new HashMap<String, String>();
 
     public Integer getId() {
         return id;
@@ -52,6 +64,38 @@ public class User {
         this.birthday = birthday;
     }
 
+    public Set<String> getAddressSet() {
+        return addressSet;
+    }
+
+    public void setAddressSet(Set<String> addressSet) {
+        this.addressSet = addressSet;
+    }
+
+    public List<String> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<String> addressList) {
+        this.addressList = addressList;
+    }
+
+    public String[] getAddressArray() {
+        return addressArray;
+    }
+
+    public void setAddressArray(String[] addressArray) {
+        this.addressArray = addressArray;
+    }
+
+    public Map<String, String> getAddressMap() {
+        return addressMap;
+    }
+
+    public void setAddressMap(Map<String, String> addressMap) {
+        this.addressMap = addressMap;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -60,6 +104,10 @@ public class User {
                 ", password='" + password + '\'' +
                 ", age=" + age +
                 ", birthday=" + birthday +
+                ", addressSet=" + addressSet +
+                ", addressList=" + addressList +
+                ", addressArray=" + Arrays.toString(addressArray) +
+                ", addressMap=" + addressMap +
                 '}';
     }
 }

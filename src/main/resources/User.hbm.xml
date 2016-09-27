@@ -20,6 +20,30 @@
 		<property name="name" type="string" column="NAME" length="20"/>
 		<property name="age" type="int" column="AGE"/>
 		<property name="birthday" type="date" column="BIRTHDAY"/>
+        <!--addressSet属性,set集合-->
+        <set name="addressSet" table="user_address_set">
+            <key column="USER_ID"></key>
+            <element type="string" column="ADDRESS"></element>
+        </set>
+		<!--addressList属性,list集合-->
+		<list name="addressList" table="user_address_list">
+			<key column="USER_ID"></key>
+			<list-index column="IDX"></list-index>
+			<element type="string" column="ADDRESS"></element>
+		</list>
+		<!--addressArray属性,数组-->
+		<array name="addressArray" table="user_address_array">
+			<key column="USER_ID"></key>
+			<list-index column="IDX"></list-index>
+			<element type="string" column="ADDRESS"></element>
+		</array>
+		<!--addressMap属性,map集合-->
+		<map name="addressMap" table="user_address_map">
+			<key column="USER_ID"></key>
+			<map-key type="string" column="KEY_"></map-key>
+			<element type="string" column="ADDRESS"></element>
+		</map>
+
 	</class>
 	
 </hibernate-mapping>
