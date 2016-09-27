@@ -7,6 +7,7 @@ import org.hibernate.Session;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by tian on 2016/9/19.
@@ -27,10 +28,10 @@ public class App {
         User user = new User();
         user.setName("zhang san");
         // set集合
-//        Set<String> set = new HashSet<String>();
-//        set.add("地址1");
-//        set.add("地址2");
-//        user.setAddressSet(set);
+        Set<String> set = new TreeSet<String>();
+        set.add("地址2");
+        set.add("地址1");
+        user.setAddressSet(set);
 
         //list集合
 //        user.getAddressList().add("地址3");
@@ -41,8 +42,8 @@ public class App {
 //        user.setAddressArray(strArr);
 
         //map集合
-        user.getAddressMap().put("家庭地址","这是一个家庭地址");
-        user.getAddressMap().put("公司地址","这是一个公司地址");
+//        user.getAddressMap().put("家庭地址","这是一个家庭地址");
+//        user.getAddressMap().put("公司地址","这是一个公司地址");
 
         //保存
         Session session = sessionFactory.openSession();
@@ -58,7 +59,7 @@ public class App {
     public void testGet(){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        User user = (User)session.get(User.class,36);
+        User user = (User)session.get(User.class,41);
         tx.commit();
         System.out.println(user);
 

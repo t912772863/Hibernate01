@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--声明一个默认的包路径-->
+<hibernate-mapping package="com.tian.onetomany">
+	<class name="Employee" table="employee">
+		<id name="id" >
+            <generator class="native"/>
+		</id>
+		<property name="name" />
+		<!--department属性, 表达的是多对一关系-->
+		<many-to-one name="department" class="Department" column="DEPARTMENT_ID">
+
+		</many-to-one>
+
+	</class>
+	
+</hibernate-mapping>

@@ -20,8 +20,13 @@
 		<property name="name" type="string" column="NAME" length="20"/>
 		<property name="age" type="int" column="AGE"/>
 		<property name="birthday" type="date" column="BIRTHDAY"/>
-        <!--addressSet属性,set集合-->
-        <set name="addressSet" table="user_address_set">
+        <!--addressSet属性,set集合
+        	set集合是无序的,这里面可以加一个sort属性对其实进行排序,有一个要求,java类中
+        	对应的实现要用可以排序的实现.比如treeSet.这里的排序是在内在中实现的 sort="natural"
+
+        	order-by = "ADDRESS DESC"可以实现子集合中的数据在查询的时候进行排序
+        -->
+        <set name="addressSet" table="user_address_set" order-by="ADDRESS DESC">
             <key column="USER_ID"></key>
             <element type="string" column="ADDRESS"></element>
         </set>
