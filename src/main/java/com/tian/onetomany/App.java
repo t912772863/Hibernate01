@@ -45,6 +45,8 @@ public class App {
         department.getEmployees().add(employee2);
 
         //保存
+        // 被依赖的值放在前面保存,其它值放在后面保存.否则可能会出现前面的值存入后找不到被依赖的值.后面存入被依赖的值后
+        //还要再对前面的值进行更新.
         session.save(department);
         session.save(employee1);
         session.save(employee2);
@@ -85,14 +87,43 @@ public class App {
     @Test
     public void testRemoveRelation(){
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
+        session.beginTransaction();
         // 获取数据,显示信息
 
+        // 从员工解除关系
+//        Employee employee = (Employee)session.get(Employee.class,3);
+//        //把关联设为空,就移除了关联关系
+//        employee.setDepartment(null);
 
+        //从部门解除
+        Department department = (Department)session.get(Department.class,4);
+        department.getEmployees().clear();
 
-
-        session.getTransaction();
+        session.getTransaction().commit();
         session.close();
 
     }
+
+    /**
+     * 测试删除对象对关联关系的影响
+     */
+    @Test
+    public void testDelete(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        // 删除员工方
+//        session.delete(session.get(Employee.class,7));
+
+
+        // 删除部门方
+        // a. 如果没有关联的员工,能删除
+        // b. 如果有关联的员工,且inverse为true,因为没有维护关联关系,所以删除失败.
+        // c. 如果有关联的员工,且inverse为false.会先把关联的那个外键列设为null.再删除
+        session.delete(session.get(Department.class,3));
+
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
 }

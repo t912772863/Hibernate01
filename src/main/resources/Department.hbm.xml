@@ -9,8 +9,11 @@
             <generator class="native"/>
 		</id>
 		<property name="name" />
-		<!--employee属性,set集合, 表达的是一对多的关系-->
-		<set name="employees">
+		<!--employee属性,set集合, 表达的是一对多的关系
+			inverse属性,默认为false,当为true时表示本方不维护表间的关联关系.
+			这样防止多方同时维护时,导致会出多余的sql要执行update
+		-->
+		<set name="employees" inverse="false">
 			<key column="DEPARTMENT_ID"></key>
 			<one-to-many class="Employee"></one-to-many>
 		</set>
