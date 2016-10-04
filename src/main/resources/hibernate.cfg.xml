@@ -21,11 +21,22 @@
 		-->
 		<property name="hbm2ddl.auto">update</property>
 
+		<!--设置默认的事务隔离级别 默认为:4
+			读未提交: 1
+			读已提交: 2
+			可重复读: 4
+			串行化(不可并发): 8
+		-->
+		<property name="connection.isolation">2</property>
 
 		<!--导入映射文件-->
 		<mapping resource="User.hbm.xml"></mapping>
 		<mapping resource="Department.hbm.xml"></mapping>
 		<mapping resource="Employee.hbm.xml"></mapping>
+		<mapping resource="Teacher.hbm.xml"></mapping>
+		<mapping resource="Student.hbm.xml"></mapping>
+		<mapping resource="Person.hbm.xml"></mapping>
+		<mapping resource="IdCard.hbm.xml"></mapping>
 
 
 	

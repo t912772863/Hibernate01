@@ -1,14 +1,11 @@
-package com.tian.onetomany;
+package com.tian.manytomany;
 
-import com.tian.hibernate.User;
+import com.tian.onetomany.Department;
+import com.tian.onetomany.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.Test;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by tian on 2016/9/19.
@@ -31,25 +28,26 @@ public class App {
     public void testSave(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        // 构造对象
-        Department department = new Department();
-        department.setName("开发部");
-        Employee employee1 = new Employee();
-        Employee employee2 = new Employee();
-        employee1.setName("张三");
-        employee2.setName("李四");
-        //关联起来
-        employee1.setDepartment(department);
-        employee2.setDepartment(department);
-        department.getEmployees().add(employee1);
-        department.getEmployees().add(employee2);
+        //
+        Student student1 = new Student();
+        student1.setName("张三");
+        Student student2 = new Student();
+        student2.setName("李四");
 
-        //保存
-        // 被依赖的值放在前面保存,其它值放在后面保存.否则可能会出现前面的值存入后找不到被依赖的值.后面存入被依赖的值后
-        //还要再对前面的值进行更新.
-        session.save(department);
-//        session.save(employee1);
-//        session.save(employee2);
+        Teacher teacher1 = new Teacher();
+        teacher1.setName("小红老师");
+        Teacher teacher2 = new Teacher();
+        teacher2.setName("小华老师");
+
+        student1.getTeachers().add(teacher1);
+        student1.getTeachers().add(teacher2);
+        student2.getTeachers().add(teacher2);
+        student2.getTeachers().add(teacher1);
+
+        session.save(student1);
+        session.save(student2);
+        session.save(teacher1);
+        session.save(teacher2);
 
         session.getTransaction().commit();
 
@@ -65,16 +63,11 @@ public class App {
     public void testGet(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        // 获取一方
-        Department department =(Department) session.get(Department.class,3);
-        System.out.println(department);
-        //显示另一方信息
-        System.out.println(department.getEmployees());
 
-        // 获取另一方
-        Employee employee = (Employee) session.get(Employee.class,3);
-        System.out.println(employee);
-        System.out.println(employee.getDepartment());
+        //
+        Teacher teacher = (Teacher)session.get(Teacher.class,1L);
+//        System.out.println(teacher);
+//        System.out.println(teacher.getStudents());
 
         session.getTransaction().commit();
         session.close();
@@ -88,16 +81,11 @@ public class App {
     public void testRemoveRelation(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        // 获取数据,显示信息
 
-        // 从员工解除关系
-//        Employee employee = (Employee)session.get(Employee.class,3);
-//        //把关联设为空,就移除了关联关系
-//        employee.setDepartment(null);
+        //
+        Teacher teacher = (Teacher)session.get(Teacher.class,1L);
+        teacher.getStudents().clear();
 
-        //从部门解除
-        Department department = (Department)session.get(Department.class,4);
-        department.getEmployees().clear();
 
         session.getTransaction().commit();
         session.close();
@@ -119,7 +107,7 @@ public class App {
         // a. 如果没有关联的员工,能删除
         // b. 如果有关联的员工,且inverse为true,因为没有维护关联关系,所以删除失败.
         // c. 如果有关联的员工,且inverse为false.会先把关联的那个外键列设为null.再删除
-        session.delete(session.get(Department.class,11));
+        session.delete(session.get(Department.class,3));
 
         session.getTransaction().commit();
         session.close();

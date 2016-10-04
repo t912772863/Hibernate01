@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--声明一个默认的包路径-->
+<hibernate-mapping package="com.tian.manytomany">
+	<class name="Teacher" table="teacher">
+		<id name="id" >
+            <generator class="native"/>
+		</id>
+		<property name="name" />
+		<!--student集合,表达的是多对多的关系-->
+		<set name="students" table="teacher_student">
+			<key column="TEACHER_ID"></key>
+			<many-to-many column="STUDENT_ID" class="Student"></many-to-many>
+		</set>
+
+	</class>
+	
+</hibernate-mapping>

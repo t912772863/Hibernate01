@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--声明一个默认的包路径-->
+<hibernate-mapping package="com.tian.onetoone">
+	<class name="Person" table="person">
+		<id name="id" >
+            <generator class="native"/>
+		</id>
+		<property name="name" />
+
+		<!--idcard属性, IdCard类型
+		 表达的是person与IdCard的一对一的关系
+		 采用基于外键的方式, 本方为无外键方
+
+		 property-ref属性写的是对方映射中外键列对应的属性名
+		-->
+		<one-to-one name="idCard" class="IdCard" property-ref="person"></one-to-one>
+	</class>
+	
+</hibernate-mapping>
