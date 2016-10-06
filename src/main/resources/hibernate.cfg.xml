@@ -11,6 +11,15 @@
 		<property name="connection.username">root</property>
 		<property name="hibernate.connection.password">06220724</property>
 
+
+		<!--c3p0数据库连接池-->
+		<property name="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+		<property name="c3p0.min.size">5</property>
+		<property name="c3p0.max.size">20</property>
+		<property name="c3p0.timeout">120</property>
+		<property name="c3p0.idle_test_period">3000</property>
+
+
 		<!-- 配置显示sql语句-->
 		<property name="hibernate.show_sql">true</property>
 		<!-- 格式化输出的语句-->
@@ -29,6 +38,13 @@
 		-->
 		<property name="connection.isolation">2</property>
 
+		<!--使用二级缓存, 默认是未打开的.-->
+		<!--指定要使用的缓存的提供商,这也就打开了二级缓存-->
+		<property name="cache.provider_class">org.hibernate.cache.ehcache.internal.regions.EhcacheQueryResultsRegion</property>
+
+
+
+
 		<!--导入映射文件-->
 		<mapping resource="User.hbm.xml"></mapping>
 		<mapping resource="Department.hbm.xml"></mapping>
@@ -38,7 +54,8 @@
 		<mapping resource="Person.hbm.xml"></mapping>
 		<mapping resource="IdCard.hbm.xml"></mapping>
 
-
+		<!--指定要使用缓存的类,这个一定要放在导入映射文件的后面-->
+		<class-cache usage="read-write" class="com.tian.onetomany.Employee" />
 	
 	</session-factory>
 </hibernate-configuration>

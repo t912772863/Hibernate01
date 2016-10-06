@@ -2,8 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!--声明一个默认的包路径-->
-<hibernate-mapping package="com.tian.onetomany">
+<!--声明一个默认的包路径
+	auto-import:属性表示在执行hql语句的时候,类是否要写全名,这里默认是true,也就是自动导包,类可以不写全名,写false,则要写全名
+	当有同名类的时候,写成false,代码中写全名
+-->
+<hibernate-mapping package="com.tian.onetomany" auto-import="true">
 	<class name="Employee" table="employee">
 		<id name="id" >
             <generator class="native"/>
@@ -13,7 +16,11 @@
 		<many-to-one name="department" class="Department" column="DEPARTMENT_ID">
 
 		</many-to-one>
-
 	</class>
+
+	<!--声明一个查询语句-->
+	<query name="queryEmployeeById">
+		FROM Employee e WHERE e.id = :id
+	</query>
 	
 </hibernate-mapping>

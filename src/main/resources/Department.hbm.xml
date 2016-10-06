@@ -16,8 +16,13 @@
 			cascade属性: 默认为none.代表不级联
 			可设为delete,表示删除当前主对象时,对关联的对象也进行删除操作
 			一般要级联时,直接写all
+
+			lazy属性: 懒加载, 默认为true
+				true,懒加载,在第一次使用的时候才会加载
+				false, 立即加载, 在获取对象的时候就加载这个集合的所有元素
+				extra, 增强懒加载, 如果只要知道元素多少个,则只会出现count语句,具体用到里面的元素才会查询出来.
 		-->
-		<set name="employees" inverse="false" cascade="save-update,delete">
+		<set name="employees" inverse="false" cascade="save-update,delete" lazy="extra">
 			<key column="DEPARTMENT_ID"></key>
 			<one-to-many class="Employee"></one-to-many>
 		</set>

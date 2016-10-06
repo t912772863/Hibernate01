@@ -8,6 +8,13 @@ public class Employee {
     private String name;
     private Department department;
 
+    public Employee(){}
+
+    public Employee(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -32,5 +39,12 @@ public class Employee {
         this.department = department;
     }
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", department=" + department +
+                '}';
+    }
 }
