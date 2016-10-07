@@ -373,4 +373,64 @@ public class App {
 
     }
 
+    /**
+     * 用hql语句的时候,所查询出来的结果会放入缓存中去,但是不会从中间去取数据.也就是说默认的
+     * 缓存只对get,load方法获取有效
+     *
+     * 如果用iterate()方法,就会使用二级缓存.
+     * 因为这个方法是先查询所有符合条件的ID集合,再一个一个的查询数据.但这个方法也会有n+1次查询的问题
+     * 提高性能有限.所以这个方法不太常用.
+     */
+    @Test
+    public void testQueryCache(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //------------------------------------------------------
+        Employee employee = (Employee)session.get(Employee.class, 1);
+        session.getTransaction().commit();
+        session.close();
+
+
+        //第二个Session
+        Session session2 = sessionFactory.openSession();
+        session2.beginTransaction();
+        //------------------------------------------------------
+        Employee employee2 = (Employee)session2.get(Employee.class, 1);
+        session2.getTransaction().commit();
+        session2.close();
+
+    }
+
+    /**
+     * 真正运用中使用二级缓存
+     * 1. 在配置文件中打开hql的查询缓存功能.
+     * 2. 在查询方法中调用一个方法
+     *
+     *
+     * update和delete会让二级缓存中的数据失效,下次使用时会再加载.这也就是说我们不
+     * 用担心二级缓存读到一些脏数据的问题
+     */
+    @Test
+    public void testQueryCache2(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //第一次查询
+        List list = session.createQuery("from Employee e where id < 10")//
+            .setCacheable(true)//设置缓存: 1.把查询出来的数据放入缓存中(以sql语句为key); 2.查询时会先在缓存中查找
+            .list();
+        System.out.println(list);
+
+
+        //第二次查询
+        List list2 = session.createQuery("from Employee e where id < 10")//
+                .setCacheable(true)//设置缓存: 1.把查询出来的数据放入缓存中(以sql语句为key); 2.查询时会先在缓存中查找
+                .list();
+        System.out.println(list2);
+
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
+
 }

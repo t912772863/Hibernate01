@@ -8,6 +8,9 @@
 -->
 <hibernate-mapping package="com.tian.onetomany" auto-import="true">
 	<class name="Employee" table="employee">
+		<!--对本类进行缓存-->
+		<cache usage="read-write"></cache>
+
 		<id name="id" >
             <generator class="native"/>
 		</id>
